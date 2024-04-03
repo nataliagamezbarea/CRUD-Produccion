@@ -22,6 +22,7 @@ app.options('/usuarios/:id', (req, res) => {
     res.status(200).end();
 });
 
+
 app.get('/', (req, res) => {
     res.sendFile(__dirname + '/index.html');
 });
@@ -29,6 +30,8 @@ app.get('/', (req, res) => {
 app.post('/', (req, res) => {
     const nombre = req.body.nombre;
     const apellido = req.body.apellido;
+    const email = req.body.email;
+    const password = req.body.password;
 
     let db = new sqlite3.Database('registros.db');
 
@@ -36,10 +39,12 @@ app.post('/', (req, res) => {
         db.run(`CREATE TABLE IF NOT EXISTS users (
             id INTEGER PRIMARY KEY,
             name TEXT,
-            surname TEXT
+            surname TEXT,
+            email TEXT UNIQUE,
+            password TEXT
         )`);
 
-        db.run(`INSERT INTO users (name, surname) VALUES (?, ?)`, [nombre, apellido], function(err) {
+        db.run(`INSERT INTO users (name, surname, email, password) VALUES (?, ?, ?, ?)`, [nombre, apellido, email, password], function(err) {
             if (err) {
                 return console.error(err.message);
             }
@@ -51,8 +56,36 @@ app.post('/', (req, res) => {
     });
 });
 
+app.post('/register', (req, res) => {
+    const { nombre, apellido, email, password } = req.body;
+
+    let db = new sqlite3.Database('registros.db');
+
+    let sql = 'INSERT INTO users (name, surname, email, password) VALUES (?, ?, ?, ?)';
+    const params = [nombre, apellido, email, password];
+
+    db.run(sql, params, function(err) {
+        if (err) {
+            console.error(err.message);
+            res.status(500).send('Error al insertar usuario en la base de datos');
+            return;
+        }
+
+        res.send({ id: this.lastID });
+
+        // Cerrar la conexión a la base de datos después de que se haya completado la inserción
+        db.close((err) => {
+            if (err) {
+                console.error(err.message);
+            }
+            console.log('Conexión a la base de datos cerrada');
+        });
+    });
+});
+
+
 app.get('/usuarios', (req, res) => {
-    const { id, nombre, apellido } = req.query;
+    const { id, nombre, apellido, password } = req.query;
 
     let db = new sqlite3.Database('registros.db');
 
@@ -72,6 +105,11 @@ app.get('/usuarios', (req, res) => {
     if (apellido) {
         sql += ' AND surname LIKE ?';
         params.push('%' + apellido + '%');
+    }
+    
+    if (password) {
+        sql += ' AND password = ?';
+        params.push(password);
     }
 
     db.serialize(() => {
@@ -128,11 +166,12 @@ app.put('/usuarios/:id/update', (req, res) => {
     const id = req.params.id;
     const nombre = req.body.nombre;
     const apellido = req.body.apellido;
+    const email = req.body.email;
 
     let db = new sqlite3.Database('registros.db');
 
     db.serialize(() => {
-        db.run(`UPDATE users SET name = ?, surname = ? WHERE id = ?`, [nombre, apellido, id], function(err) {
+        db.run(`UPDATE users SET name = ?, surname = ?, email = ? WHERE id = ?`, [nombre, apellido, email, id], function(err) {
             if (err) {
                 console.error(err.message);
                 res.status(500).send(`Error al actualizar usuario con ID ${id}`);
@@ -144,6 +183,32 @@ app.put('/usuarios/:id/update', (req, res) => {
         db.close();
     });
 });
+
+/*
+Api Login Manu
+*/
+
+app.post('/login', (req, res) => {
+    const { email, password } = req.body;
+
+    let db = new sqlite3.Database('registros.db');
+
+    db.serialize(() => {
+        db.get(`SELECT * FROM users WHERE email = ? AND password = ?`, [email, password], (err, row) => {
+            if (err) {
+                console.error(err.message);
+                res.status(500).send('Error al recuperar usuario de la base de datos');
+                return;
+            }
+            if (row) {
+                res.send(row);
+            } else {
+                res.status(404).send('Usuario no encontrado');
+            }
+        });
+        db.close();
+    });
+})
 
 app.listen(port, () => {
     console.log(`Servidor escuchando en http://localhost:${port}`);
