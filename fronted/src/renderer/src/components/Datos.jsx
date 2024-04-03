@@ -16,6 +16,8 @@ function Datos() {
   const [serverError, setServerError] = useState('');
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const  [registro, setRegistro] = useState(false);
+  const [registroModalIsOpen, setRegistroModalIsOpen] = useState(false);
+
 
   useEffect(() => {
     axios.get('http://localhost:3000/usuarios')
@@ -30,9 +32,13 @@ function Datos() {
   }, []);
 
   const handleMostrarRegistro = () => {
-    setRegistro(true);
+    setRegistroModalIsOpen(true);
   };
 
+  const handleCloseRegistroModal = () => {
+    setRegistroModalIsOpen(false);
+  }
+  
   const handleBorrarUsuario = (id) => {
     axios.delete(`http://localhost:3000/usuarios/${id}`)
       .then(response => {
@@ -257,7 +263,15 @@ function Datos() {
           </div>
         </div>
       </Modal>
-      {registro && <Registro />}
+
+      <Modal
+  isOpen={registroModalIsOpen}
+  onRequestClose={handleCloseRegistroModal}
+  contentLabel="Registrar Usuario"
+  style={customStyles}
+>
+  <Registro onCloseModal={handleCloseRegistroModal} />
+</Modal>
     </div>
     </div>
   );

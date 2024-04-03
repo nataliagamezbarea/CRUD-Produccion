@@ -7,3 +7,7 @@ h1 , label {
 
 color: black;   
 }
+
+button.button-close {
+    background-color: red;
+  }
