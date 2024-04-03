@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function Modal({ isOpen, isModifyOpen, children, onClose }) {
+export default function Modal({ isOpen, children, onClose }) {
 
   return (
     isOpen &&
