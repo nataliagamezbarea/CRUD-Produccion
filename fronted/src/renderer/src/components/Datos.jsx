@@ -23,6 +23,11 @@ function Datos({ modalOpen }) {
       })
   }, [])
 
+
+  const handleCloseRegistroModal = () => {
+    setRegistroModalIsOpen(false);
+  }
+  
   const handleBorrarUsuario = (id) => {
     axios
       .delete(`http://localhost:3000/usuarios/${id}`)
