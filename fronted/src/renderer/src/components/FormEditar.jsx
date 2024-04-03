@@ -1,26 +1,26 @@
 import Button from './Button'
 import Input from './Input'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 function FormEditar({ usuarioSeleccionado }) {
-  const [nombre, setNombre] = useState(usuarioSeleccionado.name)
-  const [apellido, setApellido] = useState(usuarioSeleccionado.surname)
-  const [email, setEmail] = useState(usuarioSeleccionado.email)
-  const handleNombreChange = (event) => {
-    setNombre(event.target.value)
-  }
-
-  const handleApellidoChange = (event) => {
-    setApellido(event.target.value)
-  }
-
-  const handleEmailChange = (event) => {
-    setEmail(event.target.value)
-  }
-
+    const [usuario, setUsuario] = useState(usuarioSeleccionado);
+  
+    useEffect(() => {
+      setUsuario(usuarioSeleccionado);
+    }, [usuarioSeleccionado]);
+  
+    const handleNombreChange = (event) => {
+      setUsuario({ ...usuario, name: event.target.value });
+    };
+  
+    const handleApellidoChange = (event) => {
+      setUsuario({ ...usuario, surname: event.target.value });
+    };
+  
+    const handleEmailChange = (event) => {
+      setUsuario({ ...usuario, email: event.target.value });
+    };
   const handleSubmit = (event) => {
     event.preventDefault()
-    console.log(nombre, apellido, email)
-    console.log(usuarioSeleccionado.id)
     fetch(`http://localhost:3000/usuarios/${usuarioSeleccionado.id}/update`, {
       method: 'PUT',
       headers: {
@@ -28,9 +28,9 @@ function FormEditar({ usuarioSeleccionado }) {
       },
       body: JSON.stringify({
         id: usuarioSeleccionado.id,
-        nombre: nombre,
-        apellido: apellido,
-        email: email
+        nombre: usuario.name,
+        apellido: usuario.apellido,
+        email: usuario.email
       })
     })
       .then((response) => {
@@ -55,9 +55,9 @@ function FormEditar({ usuarioSeleccionado }) {
         </h1>
 
         <form onSubmit={handleSubmit}>
-          <Input type="text" value={nombre} onChange={handleNombreChange} />
-          <Input type="text" value={apellido} onChange={handleApellidoChange} />
-          <Input type="text" value={email} onChange={handleEmailChange} />
+          <Input type="text" value={usuario.name} onChange={handleNombreChange} />
+          <Input type="text" value={usuario.surname} onChange={handleApellidoChange} />
+          <Input type="text" value={usuario.email} onChange={handleEmailChange} />
           <Button type="submit">Guardar cambios</Button>{' '}
         </form>
       </div>
