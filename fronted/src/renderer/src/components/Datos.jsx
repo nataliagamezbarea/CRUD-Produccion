@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Modal from 'react-modal';
-import "./App.css";
-import userImage from './assets/images/user.png';
+import userImage from '../assets/images/user.png';
 
 function Datos() {
   const [usuarios, setUsuarios] = useState([]);

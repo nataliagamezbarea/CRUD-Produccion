@@ -1,5 +1,5 @@
 import React from 'react';
-import userImage from './assets/images/user.png';
+import userImage from '../../assets/images/user.png';
 import './Registro.css'; 
 
 function Registro() {

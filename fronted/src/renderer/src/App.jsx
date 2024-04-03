@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Modal from 'react-modal';
 import Registro from './components/Registro/Registro';
-import Datos from './components/Datos';
+import Datos from './components/Datos/';
 import './App.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 
