@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import Modal from 'react-modal';
 import userImage from '../assets/images/user.png';
+import Registro from './Registro/Registro';
 
 function Datos() {
   const [usuarios, setUsuarios] = useState([]);
@@ -14,6 +15,7 @@ function Datos() {
   const [filtroError, setFiltroError] = useState('');
   const [serverError, setServerError] = useState('');
   const [modalIsOpen, setModalIsOpen] = useState(false);
+  const  [registro, setRegistro] = useState(false);
 
   useEffect(() => {
     axios.get('http://localhost:3000/usuarios')
@@ -28,7 +30,7 @@ function Datos() {
   }, []);
 
   const handleMostrarRegistro = () => {
-    setModalIsOpen(true);
+    setRegistro(true);
   };
 
   const handleBorrarUsuario = (id) => {
@@ -255,6 +257,7 @@ function Datos() {
           </div>
         </div>
       </Modal>
+      {registro && <Registro />}
     </div>
     </div>
   );
