@@ -4,7 +4,7 @@ import Input from '../Input'
 import Button from '../Button'
 import { useState } from 'react'
 
-function Registro() {
+function Registro({onClose}) {
   const [error, setError] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -17,6 +17,7 @@ function Registro() {
       setError(true)
       return
     }
+    const usuario = { nombre, apellido, email, password }
     const response = await fetch('http://localhost:3000/register', {
       method: 'POST',
       headers: {
@@ -28,6 +29,8 @@ function Registro() {
     if (response.ok) {
       const data = await response.json()
       console.log(data)
+      console.log(usuario);
+      onClose()
     } else {
       console.error('Error:', response.status, response.statusText)
     }

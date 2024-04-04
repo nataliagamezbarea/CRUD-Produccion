@@ -7,6 +7,9 @@ function Datos({ modalOpen }) {
   const [editingId, setEditingId] = useState(null)
   const [userEdited, setUserEdited] = useState()
   const [filtroNombre, setFiltroNombre] = useState('')
+
+
+  
   useEffect(() => {
     axios
       .get('http://localhost:3000/usuarios')
