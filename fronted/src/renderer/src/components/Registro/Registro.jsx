@@ -51,6 +51,7 @@ function Registro({ onClose }) {
   }
 
   return (
+    
     <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
       <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md w-96">
         <h1 className="text-3xl font-semibold text-gray-900 dark:text-white mb-5 text-center">

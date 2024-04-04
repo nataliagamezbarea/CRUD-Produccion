@@ -21,9 +21,6 @@ function Datos({ modalOpen }) {
       })
   }, [])
 
-  const handleCloseRegistroModal = () => {
-    setRegistroModalIsOpen(false)
-  }
 
   const handleBorrarUsuario = (id) => {
     axios
