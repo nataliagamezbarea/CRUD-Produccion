@@ -31,18 +31,25 @@ export default function Login({ onLogin }) {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900">
-      <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-md w-96">
-        <h1 className="text-3xl font-semibold text-gray-900 dark:text-white mb-5 text-center">
+<div className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
+<div className="relative py-3 sm:max-w-xl sm:mx-auto">
+<div className="absolute inset-0 bg-gradient-to-r from-blue-300 to-blue-300 to blue-600 shadow-lg transform -skew-y-6 sm:skew-y-0 sm:-rotate-6 sm:rounded-3xl">
+		</div>
+<div className='relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20'>
+<div className='max-w-md mx-auto'>
+<div>
+        <h1 className="text-2xl font-semibold text-gray-900 dark:text-white mb-5 text-center">
           Login
         </h1>
+        </div>
+
         <form className="space-y-6">
           <Input
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             label="Email"
             placeholder="habitissimo@mail.com"
-            error={error}
+            error={error} className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
           />
           <Input
             value={password}
@@ -50,7 +57,7 @@ export default function Login({ onLogin }) {
             label="Contraseña"
             type="password"
             placeholder="Introduce tu contraseña"
-            error={error}
+            error={error} className="absolute left-0 -top-3.5 text-gray-600 text-sm peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-440 peer-placeholder-shown:top-2 transition-all peer-focus:-top-3.5 peer-focus:text-gray-600 peer-focus:text-sm"
           />
           {error && <p className="text-red-500 text-sm">Email y/o contraseña incorrectos</p>}
 
@@ -58,5 +65,8 @@ export default function Login({ onLogin }) {
         </form>
       </div>
     </div>
+    </div>
+    </div>
+
   )
 }
