@@ -38,7 +38,7 @@ function Registro() {
         <h1 className="text-3xl font-semibold text-gray-900 dark:text-white mb-5 text-center">
           Registra un nuevo usuario
         </h1>
-        <form action="http://localhost:3000" method="POST">
+        <form className="space-y-6" action="http://localhost:3000" method="POST">
           <div className="form-group">
             <Input
               type="text"

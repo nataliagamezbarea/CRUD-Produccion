@@ -11,7 +11,7 @@ export default function Input({ label, placeholder, type, error, ...props}) {
   }, [error]);
 
   return (
-    <div className="mb-5">
+    <>
       <label className={labelClasses}>
         {label}
       </label>
@@ -22,6 +22,5 @@ export default function Input({ label, placeholder, type, error, ...props}) {
         placeholder={placeholder}
         required
       />
-    </div>
-  )
+</>  )
 }
