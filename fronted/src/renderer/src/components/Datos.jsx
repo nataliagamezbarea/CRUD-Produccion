@@ -95,6 +95,9 @@ function Datos({ modalOpen }) {
   })
 
   return (
+
+    <div className='flex justify-center items-center h-screen'>
+  
     <div className="container mt-5">
       <div className="flex items-stretch justify-between">
         <button
@@ -195,6 +198,7 @@ function Datos({ modalOpen }) {
           </table>
         </div>
       )}
+    </div>
     </div>
   )
 }
