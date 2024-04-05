@@ -99,7 +99,7 @@ function Registro({ onClose }) {
             />
           </div>
           {errorMsg && <p className="text-red-500 text-sm">{errorMsg}</p>}
-          <Button onClick={handleSubmit}>Registrar</Button>
+          <Button color='grey' onClick={handleSubmit}>Registrar</Button>
         </form>
       </div>
     </div>

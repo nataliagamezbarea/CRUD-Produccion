@@ -62,7 +62,7 @@ export default function Login({ onLogin }) {
           />
           {error && <p className="text-red-500 text-sm">Email y/o contraseña incorrectos</p>}
 
-          <Button onClick={handleSubmit}>Iniciar sesión</Button>
+          <Button color='blue' onClick={handleSubmit}>Iniciar sesión</Button>
         </form>
       </div>
     </div>

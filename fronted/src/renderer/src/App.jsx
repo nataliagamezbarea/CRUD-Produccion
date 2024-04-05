@@ -24,14 +24,14 @@ function App() {
   return (
     <>
       {!isLogged && <Login onLogin={handleLogin} />}
-      {isLogged && (
+      {isLogged && 
         <>
           <Datos  modalOpen={openModal} />
           <Modal isOpen={isModalOpen} onClose={closeModal}>
             <Registro onClose={closeModal} />
           </Modal>
         </>
-      )}
+}
     </>
   )
 }
